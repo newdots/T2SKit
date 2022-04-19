@@ -1,4 +1,4 @@
-name: Rust
+name: Release
 
 on:
   workflow_dispatch:
@@ -24,9 +24,20 @@ jobs:
           rustup target install x86_64-apple-ios
           rustup target install aarch64-apple-darwin
           rustup target install x86_64-apple-darwin
+      
+      - name: Checkout code
       - uses: actions/checkout@v3
         with:
           submodules: 'true'
+          
+      - name: Build xcframework
+        run: |
+          cd tun2socks
+          make xcframework
+          zip Tun2SocksFramework.xcframework.zip Tun2SocksFramework.xcframework
+          cd ../
+          cp tun2socks/Tun2SocksFramework.xcframework.zip Tun2SocksFramework.xcframework.zip
+          ls -l
         
 #     - name: Build
 #       run: cargo build --verbose
