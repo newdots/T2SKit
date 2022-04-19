@@ -1,1 +1,3 @@
-# Tun2SocksKit
+# T2SKit
+
+A description of this package.
