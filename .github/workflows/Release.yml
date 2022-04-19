@@ -32,5 +32,4 @@ jobs:
           
       - name: Build xcframework
         run: |
-          cd tun2socks
-          make xcframework
+          ls -l
