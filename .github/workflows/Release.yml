@@ -34,12 +34,3 @@ jobs:
         run: |
           cd tun2socks
           make xcframework
-          zip Tun2SocksFramework.xcframework.zip Tun2SocksFramework.xcframework
-          cd ../
-          cp tun2socks/Tun2SocksFramework.xcframework.zip Tun2SocksFramework.xcframework.zip
-          ls -l
-        
-#     - name: Build
-#       run: cargo build --verbose
-#     - name: Run tests
-#       run: cargo test --verbose
