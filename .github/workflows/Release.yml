@@ -72,10 +72,8 @@ jobs:
           git config --local user.name "github-actions"
           git config remote.origin.url "https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/AppleClash/T2SKit.git"
           git add ./Package.swift
-          git commit -m "Release ${{ github.event.inputs.version }}!!!" -a
+          git commit -m "Update Package.swift!!!" -a
           git push origin main
-          git tag -a ${{ github.event.inputs.version }} -m "Release ${{ github.event.inputs.version }}!!!"
-          git push origin --tags
           
       - name: Upload Release
         uses: softprops/action-gh-release@v1
