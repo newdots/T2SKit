@@ -34,7 +34,50 @@ jobs:
         run: |
           cd tun2socks
           make xcframework
+          cd target
           zip -r Tun2SocksFramework.xcframework.zip Tun2SocksFramework.xcframework
-          cd ../
-          cp tun2socks/Tun2SocksFramework.xcframework.zip Tun2SocksFramework.xcframework.zip
-          ls -l
+          
+      - name: Detect checksum
+        run: |
+          export TEMP=`shasum -a 256 tun2socks/target/Tun2SocksFramework.xcframework.zip`
+          export CHECKSUM=${TEMP:0:64}
+          echo "FILE_CHECKSUM=${CHECKSUM}" >> $GITHUB_ENV
+          unset CHECKSUM
+          unset TEMP
+          
+      - name: Update package file
+        run: |
+          echo "// swift-tools-version:5.5" > Package.swift
+          echo "" >> Package.swift
+          echo "import PackageDescription" >> Package.swift
+          echo "" >> Package.swift
+          echo "let package = Package(" >> Package.swift
+          echo "  name: \"T2SKit\"," >> Package.swift
+          echo "  products: [" >> Package.swift
+          echo "    .library(name: \"T2SKit\", targets: [\"T2SKit\", \"Tun2SocksFramework\"])" >> Package.swift
+          echo "  ]," >> Package.swift
+          echo "  targets: [" >> Package.swift
+          echo "    .target(name: \"T2SKit\")," >> Package.swift
+          echo "    .binaryTarget(" >> Package.swift
+          echo "      name: \"Tun2SocksFramework\"," >> Package.swift
+          echo "      url: \"https://github.com/AppleClash/T2SKit/releases/download/${{ github.event.inputs.version }}/ClashKit.xcframework.zip\"," >> Package.swift
+          echo "      checksum: \"${{ env.FILE_CHECKSUM }}\"" >> Package.swift
+          echo "    )" >> Package.swift
+          echo "  ]" >> Package.swift
+          echo ")" >> Package.swift
+          
+      - name: Commit
+        run: |
+          git config --local user.email "github-actions@users.noreply.github.com"
+          git config --local user.name "github-actions"
+          git config remote.origin.url "https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/AppleClash/T2SKit.git"
+          git add ./Package.swift
+          git commit -m "Release ${{ github.event.inputs.version }}!!!" -a
+          git push origin main
+          git tag -a ${{ github.event.inputs.version }} -m "Release ${{ github.event.inputs.version }}!!!"
+          git push origin --tags
+          
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          path: tun2socks/target/Tun2SocksFramework.xcframework.zip
