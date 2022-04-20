@@ -54,10 +54,11 @@ jobs:
           echo "let package = Package(" >> Package.swift
           echo "  name: \"T2SKit\"," >> Package.swift
           echo "  products: [" >> Package.swift
-          echo "    .library(name: \"T2SKit\", targets: [\"T2SKit\", \"Tun2SocksFramework\"])" >> Package.swift
+          echo "    .library(name: \"T2SKit\", targets: [\"T2SKit\"])" >> Package.swift
           echo "  ]," >> Package.swift
           echo "  targets: [" >> Package.swift
-          echo "    .target(name: \"T2SKit\")," >> Package.swift
+          echo "    .target(name: \"T2SKit\", dependencies: [\"T2SKitC\", \"Tun2SocksFramework\"])," >> Package.swift
+          echo "    .target(name: \"T2SKitC\", publicHeadersPath: \".\")," >> Package.swift
           echo "    .binaryTarget(" >> Package.swift
           echo "      name: \"Tun2SocksFramework\"," >> Package.swift
           echo "      url: \"https://github.com/AppleClash/T2SKit/releases/download/${{ github.event.inputs.version }}/Tun2SocksFramework.xcframework.zip\"," >> Package.swift
