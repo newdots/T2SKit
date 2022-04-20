@@ -5,10 +5,11 @@ import PackageDescription
 let package = Package(
   name: "T2SKit",
   products: [
-    .library(name: "T2SKit", targets: ["T2SKit", "Tun2SocksFramework"])
+    .library(name: "T2SKit", targets: ["T2SKit", "T2SKitC"])
   ],
   targets: [
-    .target(name: "T2SKit"),
+    .target(name: "T2SKit", dependencies: ["T2SKitC"]),
+    .target(name: "T2SKitC", dependencies: ["Tun2SocksFramework"], publicHeadersPath: "."),
     .binaryTarget(
       name: "Tun2SocksFramework",
       url: "https://github.com/AppleClash/T2SKit/releases/download/1.0.0/Tun2SocksFramework.xcframework.zip",

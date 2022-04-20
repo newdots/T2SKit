@@ -1,16 +1,39 @@
 import Foundation
-
-@_silgen_name("startTun2Socks") private func rust_startTun2Socks(_ config: UnsafePointer<CChar>!) -> Int32
-
-@_silgen_name("stopTun2Socks") private func rust_stopTun2Socks() -> Bool
+import T2SKitC
 
 public enum Tun2Socks {
-    
-    public static func start(config: String) -> Int32 {
-        rust_startTun2Socks(config.cString(using: .utf8))
+        
+    public static func start(fd: Int32, host: String, port: Int) {
+        let config: String = """
+        {
+            "log": {
+                "level": "warn"
+            },
+            "inbounds": [
+                {
+                    "protocol": "tun",
+                    "settings": {
+                        "fd": \(fd)
+                    },
+                    "tag": "tun"
+                }
+            ],
+            "outbounds": [
+                {
+                    "protocol": "socks",
+                    "settings": {
+                        "address": "\(host)",
+                        "port": \(port)
+                    },
+                    "tag": "clash"
+                }
+            ]
+        }
+        """
+        start_tun2socks(config.cString(using: .utf8))
     }
     
     public static func stop() -> Bool {
-        rust_stopTun2Socks()
+        stop_tun2socks()
     }
 }

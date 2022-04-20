@@ -1,0 +1,4 @@
+module T2SKitC {
+    umbrella header "T2SKitC.h"
+    export *
+}
