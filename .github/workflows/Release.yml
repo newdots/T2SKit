@@ -73,7 +73,7 @@ jobs:
           git config --local user.name "github-actions"
           git config remote.origin.url "https://${{ secrets.PERSONAL_ACCESS_TOKEN }}@github.com/AppleClash/T2SKit.git"
           git add ./Package.swift
-          git commit -m "Update Package.swift!!!" -a
+          git commit -m "Release ${{ github.event.inputs.version }}!!!" -a
           git push origin main
           
       - name: Upload Release
