@@ -1,6 +1,6 @@
 # T2SKit
 
-基于leaf的Tun2Socks实现。
+基于leaf的Tun2Socks实现，TUN ---> leaf ---> TARGET。
 
 ```json
 {
@@ -11,7 +11,7 @@
         {
             "protocol": "tun",
             "settings": {
-                "fd": \(TUN_FILE_DESCRIPTOR)
+                "fd": 5
             },
             "tag": "tun"
         }
@@ -20,13 +20,11 @@
         {
             "protocol": "socks",
             "settings": {
-                "address": "\(SOCKS5_HOST_ADDRESS)",
-                "port": \(SOCKS5_PROT)
+                "address": "127.0.0.1",
+                "port": 7891
             },
             "tag": "clash"
         }
     ]
 }
 ```
-
-TUN ---> leaf ---> TARGET
