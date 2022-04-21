@@ -1,6 +1,6 @@
 # T2SKit
 
-基于leaf的Tun2Socks实现，TUN ---> leaf ---> TARGET。
+基于leaf的Tun2Socks实现，TUN ---> leaf ---> Clash。
 
 ```json
 {
