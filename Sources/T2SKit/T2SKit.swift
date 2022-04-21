@@ -33,7 +33,7 @@ public enum Tun2Socks {
         start_tun2socks(config.cString(using: .utf8))
     }
     
-    public static func stop() -> Bool {
+    public static func stop() {
         stop_tun2socks()
     }
 }
