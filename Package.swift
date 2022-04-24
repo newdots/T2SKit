@@ -12,8 +12,8 @@ let package = Package(
     .target(name: "T2SKitC", publicHeadersPath: "."),
     .binaryTarget(
       name: "Tun2SocksFramework",
-      url: "https://github.com/AppleClash/T2SKit/releases/download/1.1.0/Tun2SocksFramework.xcframework.zip",
-      checksum: "cbf1c52cccabacc1a16dda0fd426fc8017111c8c5e2d5622ecc9e2da5a4150cf"
+      url: "https://github.com/AppleClash/T2SKit/releases/download/1.2.0/Tun2SocksFramework.xcframework.zip",
+      checksum: "1b219dc072e23f0e8882f1e45adbeb7e197f1a9d47e6a479dd3219d5aec9ec42"
     )
   ]
 )
